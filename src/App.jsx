@@ -1,11 +1,29 @@
+import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useGetTodosQuery } from "./app/features/todo/todoApi";
+import { useState } from "react";
+import SidebarNav from "./components/Sidebar";
+import Modalview from "./components/Modal";
+import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
 
 function App() {
-  const {data} = useGetTodosQuery()
-  console.log(data);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Dashboard />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+  ]);
+
+
+
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <RouterProvider router={router} />
     </>
   );
 }
