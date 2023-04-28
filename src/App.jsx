@@ -1,9 +1,4 @@
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import { useGetTodosQuery } from "./app/features/todo/todoApi";
-import { useState } from "react";
-import SidebarNav from "./components/Sidebar";
-import Modalview from "./components/Modal";
-import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 
@@ -18,8 +13,6 @@ function App() {
       element: <Login />,
     },
   ]);
-
-
 
   return (
     <>

@@ -1,6 +1,8 @@
 import { Sidebar } from "flowbite-react";
+import { useGetCategoriesQuery } from "../app/features/todo/todoApi";
 
 function SidebarNav() {
+  const { data } = useGetCategoriesQuery();
   return (
     <div className="h-full p-3 space-y-2  text-gray-800">
       <div className="flex items-center p-2 space-x-4">
@@ -24,49 +26,20 @@ function SidebarNav() {
       </div>
       <div className="divide-y divide-gray-300">
         <ul className="pt-2 pb-4 space-y-1 text-sm">
-          <li className=" text-gray-900">
-            <button
-              rel="noopener noreferrer"
-              href="#"
-              className="flex items-center p-2 space-x-3 rounded-md"
-            >
-              <span className="w-7 h-7 bg-red-200 rounded-full"></span>
-              <span>Dashboard</span>
-            </button>
-          </li>
-        
-          <li className=" text-gray-900">
-            <button
-              rel="noopener noreferrer"
-              href="#"
-              className="flex items-center p-2 space-x-3 rounded-md"
-            >
-              <span className="w-7 h-7 bg-red-200 rounded-full"></span>
-              <span>Dashboard</span>
-            </button>
-          </li>
-          <li className=" text-gray-900">
-            <button
-              rel="noopener noreferrer"
-              href="#"
-              className="flex items-center p-2 space-x-3 rounded-md"
-            >
-              <span className="w-7 h-7 bg-red-200 rounded-full"></span>
-              <span>Dashboard</span>
-            </button>
-          </li>
-          <li className=" text-gray-900">
-            <button
-              rel="noopener noreferrer"
-              href="#"
-              className="flex items-center p-2 space-x-3 rounded-md"
-            >
-              <span className="w-7 h-7 bg-red-200 rounded-full"></span>
-              <span>Dashboard</span>
-            </button>
-          </li>
-        
-         
+          {data?.categories.map((d) => (
+            <li key={d.id} className=" text-gray-900">
+              <button
+                rel="noopener noreferrer"
+                href="#"
+                className="flex items-center p-2 space-x-3 rounded-md"
+              >
+                <span
+                  className={`w-7 h-7 bg-${d.color}-600 opacity-30 rounded-full`}
+                ></span>
+                <span>{d.name}</span>
+              </button>
+            </li>
+          ))}
         </ul>
         <ul className="pt-4 pb-2 space-y-1 text-sm">
           <li>
