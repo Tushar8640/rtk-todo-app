@@ -1,47 +1,55 @@
-import { Card, Checkbox, Dropdown } from "flowbite-react";
-import React from "react";
+import { useState } from "react";
+import OptionModal from "./OptionModal";
 
-const TodoCard = () => {
+const TodoCard = ({ todo }) => {
+  const { title, description, category } = todo || {};
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="">
       <div className=" p-4 shadow-md bg-[#fff9de] text-gray-800">
         <div className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between  border-bottom">
-              <div className="flex items-center">
+              <div className="flex items-center relative">
                 <h1 className="mb-0 capitalize text-gray-800 font-bold text-xxl">
-                  Photography
+                  {title}
                 </h1>
               </div>
 
-              <button>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                  />
-                </svg>
-              </button>
+              <div className="relative">
+                <button onClick={() => setShowModal(true)}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </button>
+
+                <OptionModal
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                />
+              </div>
             </div>
-            <p className="leading-snug text-gray-600">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Repellat, excepturi. Lorem ipsum dolor sit amet consectetur,
-              adipisicing elit. Repellat, excepturi.
-            </p>
+            <p className="leading-snug text-gray-600">{description}</p>
           </div>
           <div className="flex justify-between">
             <div>
-              <button className="bg-blue-500/[.3] w-6 h-6 rounded-full mr-2"></button>
-              <button className="bg-purple-500/[.3] w-6 h-6 rounded-full mr-2"></button>
-              <button className="bg-red-500/[.3] w-6 h-6 rounded-full mr-2"></button>
+              {category?.map((c) => (
+                <button
+                  key={c.id}
+                  className={`bg-${c?.color}-500/[.3] w-6 h-6 rounded-full mr-2`}
+                ></button>
+              ))}
             </div>
             <div>
               <input

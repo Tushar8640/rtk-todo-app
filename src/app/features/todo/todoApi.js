@@ -8,6 +8,19 @@ export const todoApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    addTodo: builder.mutation({
+      query: (data) => ({
+        url: `/todo/addtodo`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    deleteTodo: builder.mutation({
+      query: (id) => ({
+        url: `/todo/addtodo/${id}`,
+        method: "DELETE",
+      }),
+    }),
     getCategories: builder.query({
       query: () => ({
         url: `/category/categories`,
@@ -17,4 +30,9 @@ export const todoApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetTodosQuery,useGetCategoriesQuery } = todoApi;
+export const {
+  useGetTodosQuery,
+  useGetCategoriesQuery,
+  useAddTodoMutation,
+  useDeleteTodoMutation,
+} = todoApi;

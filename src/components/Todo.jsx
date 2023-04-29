@@ -7,18 +7,16 @@ import {
 
 const Todo = () => {
   const email = "admin@gmail.com";
-  const { data } = useGetTodosQuery(email);
+  const { data: todos } = useGetTodosQuery(email);
   const { data: categories } = useGetCategoriesQuery();
   console.log(categories);
-  console.log(data);
+  console.log(todos);
   return (
     <div className="mt-8 overflow-y-scroll h-[550px]">
       <div className="grid grid-cols-2 w-3/4  gap-4  mx-auto">
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
+        {todos?.todos?.map((t) => (
+          <TodoCard key={t?._id} todo={t} />
+        ))}
       </div>
     </div>
   );

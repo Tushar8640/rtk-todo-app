@@ -1,10 +1,12 @@
-import {configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/api/apiSlice";
-
+import todoSlice from "./features/todo/todoSlice";
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
+    todo: todoSlice,
   },
-//   devTools: process.env.NODE_ENV !== "production",
-  middleware: (getDefaultMiddlewares) => getDefaultMiddlewares().concat(apiSlice.middleware),
+  //   devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddlewares) =>
+    getDefaultMiddlewares().concat(apiSlice.middleware),
 });
