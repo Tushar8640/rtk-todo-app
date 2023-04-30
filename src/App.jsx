@@ -1,12 +1,46 @@
-import { useGetTodosQuery } from "./app/features/todo/todoApi";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import PublicRoute from "./components/PublicRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import { useAuthCheck } from "./hooks/useAuthCheck";
+import Registration from "./pages/Registration";
 
 function App() {
-  const {data} = useGetTodosQuery()
-  console.log(data);
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </>
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <PublicRoute>
+          {" "}
+          <Login />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: "/registration",
+      element: (
+        <PublicRoute>
+          {" "}
+          <Registration />
+        </PublicRoute>
+      ),
+    },
+  ]);
+
+  const authChecked = useAuthCheck();
+  return !authChecked ? (
+    <div>Checking Authentication....</div>
+  ) : (
+    <RouterProvider router={router} />
   );
 }
 
