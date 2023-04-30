@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAddTodoMutation,
   useGetCategoriesQuery,
@@ -7,36 +7,56 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addRemoveCategory,
   addRemoveCategoryId,
+  addRemoveEditedTodoCategory,
 } from "../app/features/todo/todoSlice";
 
-const Modalview = ({ show, setShow }) => {
+// eslint-disable-next-line react/prop-types
+const EditModal = ({ show, setShow }) => {
   const dispatch = useDispatch();
-  const { categoryId, selectedCategory } = useSelector((state) => state.todo);
+  const { data: totalCategory } = useGetCategoriesQuery();
+  const {
+    categoryId,
+    selectedCategory,
+    editTodo: selectedTodo,
+  } = useSelector((state) => state.todo);
+  const { editedTodo, editedTodoCategory } = selectedTodo || {};
   const { data: category } = useGetCategoriesQuery();
-  const [addTodo, { data: addTodoresponse, isLoading, isError }] =
+  const [editTodo, { data: addTodoresponse, isLoading, isError }] =
     useAddTodoMutation();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  // const [categories, setCategories] = useState([]);
-  let categories = [];
 
   const addOrRemove = (itemId, item) => {
     dispatch(addRemoveCategoryId(itemId));
     dispatch(addRemoveCategory(item));
   };
-  const handleAddTodo = () => {
-    const data = {
-      title,
-      description,
-      user: {
-        name: "Admin",
-        email: "admin@gmail.com",
-      },
-      category: selectedCategory,
-    };
-    addTodo(data);
+  useEffect(() => {
+    console.log("editedTodo", editedTodo);
+    setTitle(editedTodo?.title);
+    setDescription(editedTodo?.description);
+  }, [dispatch, editedTodo?.description, editedTodo?.title, editedTodo]);
+
+  console.log(editedTodo);
+
+  const handleEditTodo = () => {
+    const finalCat = totalCategory.categories?.filter((item) =>
+      editedTodoCategory.includes(item.name)
+    );
+    console.log(finalCat);
+    // const data = {
+    //   title,
+    //   description,
+    //   user: {
+    //     name: "Admin",
+    //     email: "admin@gmail.com",
+    //   },
+    //   category: selectedCategory,
+    // };
+    // editTodo(data);
   };
+  console.log(editedTodoCategory);
+  console.log(addTodoresponse, isLoading, isError);
 
   return (
     <>
@@ -55,7 +75,7 @@ const Modalview = ({ show, setShow }) => {
                     className="bg-gray-800 text-white px-8 rounded-lg py-2"
                     onClick={() => setShow(false)}
                   >
-                    Add
+                    Edit
                   </button>
                 </div>
                 {/*body*/}
@@ -67,7 +87,7 @@ const Modalview = ({ show, setShow }) => {
                           htmlFor="website"
                           className=" font-semibold text-xl"
                         >
-                          Title
+                          Title1
                         </label>
                         <input
                           onChange={(e) => setTitle(e.target.value)}
@@ -94,10 +114,12 @@ const Modalview = ({ show, setShow }) => {
                         <div className="grid grid-cols-4 gap-x-2">
                           {category?.categories?.map((c) => (
                             <button
-                              onClick={() => addOrRemove(c.id, c)}
+                              onClick={() =>
+                                dispatch(addRemoveEditedTodoCategory(c))
+                              }
                               key={c.id}
                               className={`flex items-center justify-center py-2 ${
-                                categoryId.includes(c.id) &&
+                                editedTodoCategory.includes(c.name) &&
                                 `bg-${c?.color}-600 bg-opacity-10`
                               } space-x-2 rounded-md`}
                             >
@@ -124,7 +146,7 @@ const Modalview = ({ show, setShow }) => {
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => handleAddTodo()}
+                    onClick={() => handleEditTodo()}
                   >
                     Save Changes
                   </button>
@@ -139,4 +161,4 @@ const Modalview = ({ show, setShow }) => {
   );
 };
 
-export default Modalview;
+export default EditModal;

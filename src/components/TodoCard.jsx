@@ -1,9 +1,18 @@
 import { useState } from "react";
 import OptionModal from "./OptionModal";
+import EditModal from "./Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { addEditedTodo } from "../app/features/todo/todoSlice";
 
+// eslint-disable-next-line react/prop-types
 const TodoCard = ({ todo }) => {
   const { title, description, category } = todo || {};
   const [showModal, setShowModal] = useState(false);
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    editTodo: selectedTodo,
+  } = useSelector((state) => state.todo);
   return (
     <div className="">
       <div className=" p-4 shadow-md bg-[#fff9de] text-gray-800">
@@ -17,7 +26,12 @@ const TodoCard = ({ todo }) => {
               </div>
 
               <div className="relative">
-                <button onClick={() => setShowModal(true)}>
+                <button
+                  onClick={() => {
+                    dispatch(addEditedTodo(todo));
+                    setShowModal(true);
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -35,6 +49,9 @@ const TodoCard = ({ todo }) => {
                 </button>
 
                 <OptionModal
+                selectedTodo={selectedTodo}
+                  show={show}
+                  setShow={setShow}
                   showModal={showModal}
                   setShowModal={setShowModal}
                 />
@@ -63,6 +80,7 @@ const TodoCard = ({ todo }) => {
           </div>
         </div>
       </div>
+    
     </div>
   );
 };

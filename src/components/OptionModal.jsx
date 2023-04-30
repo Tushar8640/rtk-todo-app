@@ -1,4 +1,6 @@
-const OptionModal = ({ showModal, setShowModal }) => {
+import EditModal from "./EditModal";
+
+const OptionModal = ({ showModal, setShowModal, show, setShow }) => {
   return (
     <>
       {showModal ? (
@@ -15,7 +17,7 @@ const OptionModal = ({ showModal, setShowModal }) => {
                 <button
                   className="hover:bg-gray-100 px-4 py-1 rounded"
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => setShow(true)}
                 >
                   Edit ...
                 </button>
@@ -34,6 +36,7 @@ const OptionModal = ({ showModal, setShowModal }) => {
               className="opacity-0 fixed inset-0 z-40 bg-black"
             ></div>
           </div>
+          <EditModal show={show} setShow={setShow} />
         </>
       ) : null}
     </>

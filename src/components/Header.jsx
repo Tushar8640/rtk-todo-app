@@ -1,12 +1,30 @@
-import { Button } from "flowbite-react";
+
 import Modalview from "./Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchTitle } from "../app/features/todo/todoSlice";
 
 const Header = () => {
-  const [show,setShow] = useState(false)
-  const handleModal=()=>{
-    setShow(!show)
-  }
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const handleModal = () => {
+    setShow(!show);
+  };
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+      dispatch(searchTitle(searchTerm));
+    }, 1500);
+
+    return () => {
+      clearTimeout(delayDebounce);
+    };
+  }, [searchTerm,dispatch]);
+
   return (
     <header className="p-4 text-gray-800">
       <div className="container flex justify-between h-8 mx-auto">
@@ -31,6 +49,8 @@ const Header = () => {
             <input
               type="search"
               name="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search..."
               className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-100 text-gray-800 focus:bg-gray-50"
             />
@@ -52,7 +72,7 @@ const Header = () => {
             </svg>
           </button>
         </div>
-        <button  title="Open menu" type="button" className="p-4 lg:hidden">
+        <button title="Open menu" type="button" className="p-4 lg:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

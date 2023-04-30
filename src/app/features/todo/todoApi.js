@@ -3,8 +3,8 @@ import { apiSlice } from "../api/apiSlice";
 export const todoApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: (email) => ({
-        url: `/todo/todos/${email}`,
+      query: ({ email, queryString }) => ({
+        url: `/todo/todos/${email}?${queryString}`,
         method: "GET",
       }),
     }),
