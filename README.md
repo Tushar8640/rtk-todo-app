@@ -35,13 +35,13 @@ To install this project on your local machine, follow these steps:
 Clone the project
 
 ```bash
-  git clone https://github.com/Tushar8640/todo-app.git
+  git clone https://github.com/Tushar8640/rtk-todo-app.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd todo-app
+  cd rtk-todo-app
 ```
 
 
