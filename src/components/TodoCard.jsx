@@ -90,12 +90,12 @@ const TodoCard = ({ todo }) => {
               <input
                 disabled={isLoading}
                 onChange={() => handleEditTodo(todo?._id, todo?.complete)}
-                id="checkbox"
+                id={todo?._id}
                 type="checkbox"
                 checked={todo?.complete}
                 className="w-4 mr-2 h-4 text-gray-600 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
-              <label htmlFor="checkbox">Done</label>
+              <label htmlFor={todo?._id}>Done</label>
             </div>
           </div>
         </div>
