@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
-import {  userLoggedIn } from "./authSlice";
+import { userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -33,30 +33,10 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     signUp: builder.mutation({
       query: (data) => ({
-        url: "/user/addUser",
+        url: "/user/signup",
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          const data = result?.data?.user;
-          if (result?.data?.status === "success") {
-            dispatch(
-              apiSlice.util.updateQueryData(
-                "getAllUsers",
-                undefined,
-                (draft) => {
-                  draft?.users?.unshift(data);
-                }
-              )
-            );
-          }
-        } catch (err) {
-          //nothing to do
-          console.log(err);
-        }
-      },
     }),
   }),
 });

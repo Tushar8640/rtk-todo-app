@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { useAuthCheck } from "./hooks/useAuthCheck";
+import Registration from "./pages/Registration";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +22,15 @@ function App() {
         <PublicRoute>
           {" "}
           <Login />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: "/registration",
+      element: (
+        <PublicRoute>
+          {" "}
+          <Registration />
         </PublicRoute>
       ),
     },

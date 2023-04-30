@@ -52,20 +52,8 @@ const Modalview = ({ show, setShow }) => {
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <button onClick={() => setShow(false)} className="text-sm ">
-                    Cancel
-                  </button>
-                  <button
-                    className="bg-gray-800 text-white px-8 rounded-lg py-2"
-                    onClick={() => setShow(false)}
-                  >
-                    Add
-                  </button>
-                </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto w-[600px]">
+                <div className="relative px-6 flex-auto w-[600px]">
                   <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm">
                     <div className="grid grid-cols-6 gap-4 col-span-full ">
                       <div className="col-span-full ">
@@ -119,20 +107,20 @@ const Modalview = ({ show, setShow }) => {
                   </fieldset>
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="flex items-center justify-end px-6 pb-6 ">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShow(false)}
                   >
                     Close
                   </button>
                   <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-gray-800 text-white px-8 rounded-lg py-2"
                     type="button"
                     onClick={() => handleAddTodo()}
                   >
-                    Save Changes
+                    Add todo
                   </button>
                 </div>
               </div>

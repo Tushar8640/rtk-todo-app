@@ -7,45 +7,69 @@ import {
   TextInput,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useLoginMutation } from "../app/features/auth/authApi";
+import {
+  useLoginMutation,
+  useSignUpMutation,
+} from "../app/features/auth/authApi";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Registration = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [login, { data, isLoading, error: responseError, isError }] =
-    useLoginMutation();
+  const [signUp, { data, isLoading, error: responseError, isError }] =
+    useSignUpMutation();
 
   useEffect(() => {
-    if (!data?.status) {
-      setError(responseError?.message);
+    if (data?.status == false) {
+      setError(data?.message);
+    }
+    if (data?.status == true) {
+      setError("");
     }
     if (responseError?.data) {
       setError(responseError?.data?.message);
     }
-    if (data?.token && data?.user) {
-      navigate("/");
+    if (data?.user) {
+      navigate("/login");
     }
   }, [data, responseError, navigate]);
   const handleOnSubmit = (e) => {
     e.preventDefault();
-
-    login({
+    console.log(name, email, password);
+    signUp({
+      name,
       email,
       password,
     });
   };
 
-  console.log(data, isLoading, responseError);
+  console.log(data, isLoading, isError);
+  console.log(error);
 
   return (
     <div className="grid h-screen place-items-center">
       <form onSubmit={handleOnSubmit} className="flex flex-col gap-4 w-1/4">
         <div className=" text-center">
-          <h1 className="my-3 text-4xl font-bold">Login</h1>
-          <p className="text-sm text-gray-600">Login to access your account</p>
+          <h1 className="my-3 text-4xl font-bold">Registration</h1>
+          <p className="text-sm text-gray-600">
+            Register to create your account
+          </p>
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="name" value="Your name" />
+          </div>
+          <TextInput
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            id="name"
+            type="text"
+            placeholder="Your name"
+            required={true}
+          />
         </div>
         <div>
           <div className="mb-2 block">
@@ -78,22 +102,21 @@ const Login = () => {
         </div>
         <Button disabled={isLoading} type="submit">
           {isLoading && <Spinner aria-label="Spinner button example" />}
-          <span className=" ml-3">{isLoading ? "Loading..." : "Login"}</span>
+          <span className=" ml-3">{isLoading ? "Loading..." : "SignUp"}</span>
         </Button>
-        {isError && (
-          <Alert color="failure">
-            <span>
-              <span className="font-medium">Error !</span> Change {error}
-            </span>
-          </Alert>
-        )}
+
+        {isError ||
+          (error?.length > 0 && (
+            <Alert color="failure">
+              <span>
+                <span className="font-medium">Error !</span> {error}
+              </span>
+            </Alert>
+          ))}
         <p className="px-6 text-sm text-center text-gray-600">
-          Don't have an account yet?
-          <Link
-            to={"/registration"}
-            className="hover:underline text-blue-600 ml-2"
-          >
-            Sign up
+          Already have an account yet?
+          <Link to={"/login"} className="hover:underline text-blue-600 ml-2">
+            Sign in
           </Link>
           .
         </p>
@@ -102,4 +125,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;

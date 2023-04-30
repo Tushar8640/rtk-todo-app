@@ -13,6 +13,7 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
     },
     userLoggedOut: (state) => {
+      localStorage.removeItem("auth");
       state.accessToken = undefined;
       state.user = undefined;
     },

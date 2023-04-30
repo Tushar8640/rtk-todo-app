@@ -1,4 +1,3 @@
-
 import Modalview from "./Modal";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -23,7 +22,7 @@ const Header = () => {
     return () => {
       clearTimeout(delayDebounce);
     };
-  }, [searchTerm,dispatch]);
+  }, [searchTerm, dispatch]);
 
   return (
     <header className="p-4 text-gray-800">
@@ -72,22 +71,6 @@ const Header = () => {
             </svg>
           </button>
         </div>
-        <button title="Open menu" type="button" className="p-4 lg:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-6 h-6 text-gray-800"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button>
       </div>
       <Modalview show={show} setShow={setShow} />
     </header>
