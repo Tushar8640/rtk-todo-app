@@ -19,6 +19,45 @@ This is a web application designed for managing daily task using the MERN (Mongo
 **Server:** Node, Express, Mongoose, JWT
 
 
+## Login Credentials
+- email: admin@gmail.com 
+- password: 1234
+
+
+## Installation
+
+To install this project on your local machine, follow these steps:
+
+####  Frontend
+    
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Tushar8640/todo-app.git
+```
+
+Go to the project directory
+
+```bash
+  cd todo-app
+```
+
+
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm start
+```
+
 ## Authors
 
 -  [@Tusar Imran](https://www.github.com/Tushar8640)
