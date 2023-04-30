@@ -26,10 +26,8 @@ const Todo = () => {
   }
 
   const queryString = queryParams.join("&");
-  console.log(queryString);
   const { data: todos } = useGetTodosQuery({ email, queryString });
   const { data: categories } = useGetCategoriesQuery();
-  const [show, setShow] = useState(true);
   return (
     <div className="mt-8 overflow-y-scroll h-[550px]">
       <div className="grid grid-cols-2 w-3/4  gap-4  mx-auto">
@@ -37,7 +35,6 @@ const Todo = () => {
           <TodoCard key={t?._id} todo={t} />
         ))}
       </div>
-      
     </div>
   );
 };

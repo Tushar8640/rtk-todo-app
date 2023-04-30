@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   useAddTodoMutation,
+  useEditTodoMutation,
   useGetCategoriesQuery,
 } from "../app/features/todo/todoApi";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +14,7 @@ import {
 // eslint-disable-next-line react/prop-types
 const EditModal = ({ show, setShow }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const { data: totalCategory } = useGetCategoriesQuery();
   const {
     categoryId,
@@ -21,42 +23,38 @@ const EditModal = ({ show, setShow }) => {
   } = useSelector((state) => state.todo);
   const { editedTodo, editedTodoCategory } = selectedTodo || {};
   const { data: category } = useGetCategoriesQuery();
-  const [editTodo, { data: addTodoresponse, isLoading, isError }] =
-    useAddTodoMutation();
+  const [editTodo, { data: editTodoresponse, isLoading, isError }] =
+    useEditTodoMutation();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const addOrRemove = (itemId, item) => {
-    dispatch(addRemoveCategoryId(itemId));
-    dispatch(addRemoveCategory(item));
-  };
   useEffect(() => {
-    console.log("editedTodo", editedTodo);
     setTitle(editedTodo?.title);
     setDescription(editedTodo?.description);
   }, [dispatch, editedTodo?.description, editedTodo?.title, editedTodo]);
-
-  console.log(editedTodo);
 
   const handleEditTodo = () => {
     const finalCat = totalCategory.categories?.filter((item) =>
       editedTodoCategory.includes(item.name)
     );
-    console.log(finalCat);
-    // const data = {
-    //   title,
-    //   description,
-    //   user: {
-    //     name: "Admin",
-    //     email: "admin@gmail.com",
-    //   },
-    //   category: selectedCategory,
-    // };
-    // editTodo(data);
+
+    const data = {
+      title,
+      description,
+      user: {
+        name: user?.name,
+        email: user?.email,
+      },
+      category: finalCat,
+    };
+    editTodo({ id: editedTodo?._id, data: data });
   };
-  console.log(editedTodoCategory);
-  console.log(addTodoresponse, isLoading, isError);
+  useEffect(() => {
+    if (editTodoresponse?.status == "success") {
+      setShow(false);
+    }
+  }, [editTodoresponse?.status, setShow]);
 
   return (
     <>

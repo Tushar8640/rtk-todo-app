@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAddTodoMutation,
   useGetCategoriesQuery,
@@ -36,8 +36,14 @@ const Modalview = ({ show, setShow }) => {
       category: selectedCategory,
     };
     addTodo(data);
+    setShow(false);
   };
 
+  useEffect(() => {
+    if (addTodoresponse?.status == "success") {
+      setShow(false);
+    }
+  }, [addTodoresponse, setShow]);
   return (
     <>
       {show ? (

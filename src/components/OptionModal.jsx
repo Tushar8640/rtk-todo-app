@@ -1,6 +1,17 @@
+import { useSelector } from "react-redux";
+import { useDeleteTodoMutation } from "../app/features/todo/todoApi";
 import EditModal from "./EditModal";
 
+// eslint-disable-next-line react/prop-types
 const OptionModal = ({ showModal, setShowModal, show, setShow }) => {
+  const { user } = useSelector((state) => state.auth);
+  const [deleteTodo, { data, isLoading, isError }] = useDeleteTodoMutation();
+  const { editTodo: selectedTodo } = useSelector((state) => state.todo);
+  const { editedTodo } = selectedTodo || {};
+  const handleDelete = () => {
+    deleteTodo({ id: editedTodo?._id, email: user?.email });
+  };
+
   return (
     <>
       {showModal ? (
@@ -17,7 +28,9 @@ const OptionModal = ({ showModal, setShowModal, show, setShow }) => {
                 <button
                   className="hover:bg-gray-100 px-4 py-1 rounded"
                   type="button"
-                  onClick={() => setShow(true)}
+                  onClick={() => {
+                    setShow(true);
+                  }}
                 >
                   Edit ...
                 </button>
@@ -25,7 +38,10 @@ const OptionModal = ({ showModal, setShowModal, show, setShow }) => {
                 <button
                   className="hover:bg-gray-100 px-4 py-1 rounded"
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {
+                    handleDelete();
+                    setShowModal(false);
+                  }}
                 >
                   Delete
                 </button>

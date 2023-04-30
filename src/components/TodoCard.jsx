@@ -3,6 +3,7 @@ import OptionModal from "./OptionModal";
 import EditModal from "./Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { addEditedTodo } from "../app/features/todo/todoSlice";
+import { useEditTodoMutation } from "../app/features/todo/todoApi";
 
 // eslint-disable-next-line react/prop-types
 const TodoCard = ({ todo }) => {
@@ -10,9 +11,16 @@ const TodoCard = ({ todo }) => {
   const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const {
-    editTodo: selectedTodo,
-  } = useSelector((state) => state.todo);
+  const { editTodo: selectedTodo } = useSelector((state) => state.todo);
+  const [editTodo, { data: editTodoresponse, isLoading, isError }] =
+    useEditTodoMutation();
+
+  const handleEditTodo = (id, isCompleted) => {
+    const data = {
+      complete: !isCompleted,
+    };
+    editTodo({ id: id, data: data });
+  };
   return (
     <div className="">
       <div className=" p-4 shadow-md bg-[#fff9de] text-gray-800">
@@ -20,7 +28,11 @@ const TodoCard = ({ todo }) => {
           <div className="space-y-2">
             <div className="flex justify-between  border-bottom">
               <div className="flex items-center relative">
-                <h1 className="mb-0 capitalize text-gray-800 font-bold text-xxl">
+                <h1
+                  className={`mb-0 capitalize text-gray-800 font-bold text-xxl ${
+                    todo?.complete && "line-through"
+                  }`}
+                >
                   {title}
                 </h1>
               </div>
@@ -49,7 +61,7 @@ const TodoCard = ({ todo }) => {
                 </button>
 
                 <OptionModal
-                selectedTodo={selectedTodo}
+                  selectedTodo={selectedTodo}
                   show={show}
                   setShow={setShow}
                   showModal={showModal}
@@ -57,22 +69,30 @@ const TodoCard = ({ todo }) => {
                 />
               </div>
             </div>
-            <p className="leading-snug text-gray-600">{description}</p>
+            <p
+              className={`leading-snug text-gray-600  ${
+                todo?.complete && "line-through"
+              }`}
+            >
+              {description}
+            </p>
           </div>
           <div className="flex justify-between">
             <div>
               {category?.map((c) => (
                 <button
                   key={c.id}
-                  className={`bg-${c?.color}-500/[.3] w-6 h-6 rounded-full mr-2`}
+                  className={`bg-${c?.color}-600 bg-opacity-30 w-6 h-6 rounded-full mr-2`}
                 ></button>
               ))}
             </div>
             <div>
               <input
-                disabled={false}
+                disabled={isLoading}
+                onChange={() => handleEditTodo(todo?._id, todo?.complete)}
                 id="checkbox"
                 type="checkbox"
+                checked={todo?.complete}
                 className="w-4 mr-2 h-4 text-gray-600 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label htmlFor="checkbox">Done</label>
@@ -80,7 +100,6 @@ const TodoCard = ({ todo }) => {
           </div>
         </div>
       </div>
-    
     </div>
   );
 };
