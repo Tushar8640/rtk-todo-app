@@ -38,7 +38,7 @@ const Todo = () => {
   let content;
   if (isLoading && !isError) {
     content = (
-      <div className="grid grid-cols-2 w-3/4  gap-1  mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-3/4  gap-1  mx-auto">
         <SkeletonLoader />
         <SkeletonLoader />
         <SkeletonLoader />
@@ -59,14 +59,30 @@ const Todo = () => {
       </div>
     );
   }
+
   if (!isLoading && !isError) {
-    content = (
-      <div className="grid grid-cols-2 w-3/4  gap-4  mx-auto">
-        {todos?.todos?.map((t) => (
-          <TodoCard key={t?._id} todo={t} />
-        ))}
-      </div>
-    );
+    if (todos?.todos?.length == 0) {
+      content = (
+        <div className="p-4">
+          <Alert color="yellow">
+            <span>
+              <span className="font-medium"> Empty!</span>{" "}
+              {title.length == 0 && category.length == 0
+                ? "Please Add some todo."
+                : "No todo found."}
+            </span>
+          </Alert>
+        </div>
+      );
+    } else {
+      content = (
+        <div className="grid grid-cols-1 md:grid-cols-2 md:w-3/4  gap-4  mx-auto">
+          {todos?.todos?.map((t) => (
+            <TodoCard key={t?._id} todo={t} />
+          ))}
+        </div>
+      );
+    }
   }
 
   return <div className="mt-8 overflow-y-scroll h-[550px]">{content}</div>;

@@ -33,7 +33,7 @@ function SidebarNav() {
         </div>
       </div>
       <div className="divide-y divide-gray-300">
-        <ul className="pt-2 pb-4 space-y-1 text-sm">
+        <ul className="pt-2 pb-4 space-y-1 text-sm flex justify-center items-center md:flex-col">
           {data?.categories.map((d) => (
             <li key={d.id} className=" text-gray-900">
               <button

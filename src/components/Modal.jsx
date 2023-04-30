@@ -10,6 +10,7 @@ import {
 } from "../app/features/todo/todoSlice";
 
 const Modalview = ({ show, setShow }) => {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { categoryId, selectedCategory } = useSelector((state) => state.todo);
   const { data: category } = useGetCategoriesQuery();
@@ -19,7 +20,6 @@ const Modalview = ({ show, setShow }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   // const [categories, setCategories] = useState([]);
-  let categories = [];
 
   const addOrRemove = (itemId, item) => {
     dispatch(addRemoveCategoryId(itemId));
@@ -30,8 +30,8 @@ const Modalview = ({ show, setShow }) => {
       title,
       description,
       user: {
-        name: "Admin",
-        email: "admin@gmail.com",
+        name: user?.name,
+        email: user?.email,
       },
       category: selectedCategory,
     };
