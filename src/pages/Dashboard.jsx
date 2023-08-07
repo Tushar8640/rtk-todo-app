@@ -4,8 +4,8 @@ import Todo from "../components/Todo";
 
 const Dashboard = () => {
   return (
-    <div className="grid md:place-items-center h-screen">
-      <div className=" max-w-6xl h-[700px] bg-white p-2  md:border-[3px] md:border-gray-600/[.4] rounded-3xl w-full">
+    <div className="grid md:place-items-center h-screen lg:px-10">
+      <div className=" max-w-6xl lg:h-[700px] bg-white p-2   lg:border-[3px] md:border-gray-600/[.4] rounded-3xl w-full">
         <Header />
 
         <div className="grid grid-cols-12 ">

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-  useAddTodoMutation,
+ 
   useEditTodoMutation,
   useGetCategoriesQuery,
 } from "../app/features/todo/todoApi";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addRemoveCategory,
-  addRemoveCategoryId,
+ 
   addRemoveEditedTodoCategory,
 } from "../app/features/todo/todoSlice";
 
@@ -17,13 +16,12 @@ const EditModal = ({ show, setShow }) => {
   const { user } = useSelector((state) => state.auth);
   const { data: totalCategory } = useGetCategoriesQuery();
   const {
-    categoryId,
-    selectedCategory,
+    
     editTodo: selectedTodo,
   } = useSelector((state) => state.todo);
   const { editedTodo, editedTodoCategory } = selectedTodo || {};
   const { data: category } = useGetCategoriesQuery();
-  const [editTodo, { data: editTodoresponse, isLoading, isError }] =
+  const [editTodo, { data: editTodoresponse,  }] =
     useEditTodoMutation();
 
   const [title, setTitle] = useState("");
@@ -60,12 +58,12 @@ const EditModal = ({ show, setShow }) => {
     <>
       {show ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl px-3">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*body*/}
-                <div className="relative p-6 flex-auto w-[600px]">
+                <div className="relative p-6 flex-auto">
                   <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm">
                     <div className="grid grid-cols-6 gap-4 col-span-full ">
                       <div className="col-span-full ">
@@ -97,7 +95,7 @@ const EditModal = ({ show, setShow }) => {
                         ></textarea>
                       </div>
                       <div className="col-span-full">
-                        <div className="grid grid-cols-4 gap-x-2">
+                        <div className="grid grid-cols-3 gap-x-2">
                           {category?.categories?.map((c) => (
                             <button
                               onClick={() =>
@@ -107,10 +105,10 @@ const EditModal = ({ show, setShow }) => {
                               className={`flex items-center justify-center py-2 ${
                                 editedTodoCategory.includes(c.name) &&
                                 `bg-${c?.color}-600 bg-opacity-10`
-                              } space-x-2 rounded-md`}
+                              } space-x-1 md:space-x-2 rounded-md`}
                             >
                               <span
-                                className={`w-7 h-7 bg-${c?.color}-600 bg-opacity-40 rounded-full`}
+                                className={`w-4 h-4 md:w-7 md:h-7 bg-${c?.color}-600 bg-opacity-40 rounded-full`}
                               ></span>
                               <span>{c.name}</span>
                             </button>

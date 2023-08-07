@@ -3,7 +3,6 @@ import {
   useGetCategoriesQuery,
   useGetTodosQuery,
 } from "../app/features/todo/todoApi";
-import { useState } from "react";
 
 import { useSelector } from "react-redux";
 import SkeletonLoader from "./SkeletonLoader";
@@ -33,7 +32,6 @@ const Todo = () => {
     isLoading,
     isError,
   } = useGetTodosQuery({ email, queryString });
-  const { data: categories } = useGetCategoriesQuery();
 
   let content;
   if (isLoading && !isError) {
@@ -85,7 +83,11 @@ const Todo = () => {
     }
   }
 
-  return <div className="mt-8 overflow-y-scroll h-[550px]">{content}</div>;
+  return (
+    <div className="mt-8 overflow-y-hidden lg:overflow-y-scroll h-[550px]">
+      {content}
+    </div>
+  );
 };
 
 export default Todo;
