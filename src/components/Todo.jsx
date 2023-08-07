@@ -84,7 +84,7 @@ const Todo = () => {
   }
 
   return (
-    <div className="mt-8 overflow-y-hidden lg:overflow-y-scroll h-[550px]">
+    <div className="mt-8 overflow-y-hidden lg:overflow-y-scroll md:h-[550px]">
       {content}
     </div>
   );

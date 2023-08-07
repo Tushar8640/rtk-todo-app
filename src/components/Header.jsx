@@ -25,7 +25,7 @@ const Header = () => {
   }, [searchTerm, dispatch]);
 
   return (
-    <header className="p-4 text-gray-800 shadow">
+    <header className="p-4 text-gray-800 shadow fixed md:relative -mt-2 md:mt-0 z-50 bg-white w-full">
       <div className="container flex justify-between h-8 mx-auto">
         <h1 className="text-2xl">Todo</h1>
         <div className="flex items-center md:space-x-4">
