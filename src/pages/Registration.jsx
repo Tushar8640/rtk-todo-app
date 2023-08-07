@@ -8,7 +8,7 @@ import {
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import {
-  useLoginMutation,
+  
   useSignUpMutation,
 } from "../app/features/auth/authApi";
 import { Link, useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ const Registration = () => {
 
   return (
     <div className="grid h-screen place-items-center">
-      <form onSubmit={handleOnSubmit} className="flex flex-col gap-4 w-1/4">
+      <form onSubmit={handleOnSubmit} className="flex flex-col space-y-4 min-w-[200px] px-2 md:px-0">
         <div className=" text-center">
           <h1 className="my-3 text-4xl font-bold">Registration</h1>
           <p className="text-sm text-gray-600">

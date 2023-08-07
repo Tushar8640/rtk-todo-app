@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import {
   Alert,
   Button,
@@ -41,8 +42,8 @@ const Login = () => {
   console.log(data, isLoading, responseError);
 
   return (
-    <div className="grid h-screen place-items-center">
-      <form onSubmit={handleOnSubmit} className="flex flex-col gap-4 w-1/4">
+    <div className="grid h-screen place-items-center ">
+      <form onSubmit={handleOnSubmit} className="flex px-2 md:px-0 flex-col gap-4 min-w-[200px]">
         <div className=" text-center">
           <h1 className="my-3 text-4xl font-bold">Login</h1>
           <p className="text-sm text-gray-600">Login to access your account</p>
