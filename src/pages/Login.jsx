@@ -39,7 +39,7 @@ const Login = () => {
     });
   };
 
-  console.log(data, isLoading, responseError);
+  
 
   return (
     <div className="grid h-screen place-items-center ">

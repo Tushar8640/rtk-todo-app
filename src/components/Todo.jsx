@@ -13,7 +13,7 @@ const Todo = () => {
   const { filterCategory: category, searchTitle: title } = useSelector(
     (state) => state.todo
   );
-  // console.log(user);
+  // 
   const { email } = user || {};
   const queryParams = [];
 

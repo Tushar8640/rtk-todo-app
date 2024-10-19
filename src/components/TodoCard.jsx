@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import OptionModal from "./OptionModal";
-import EditModal from "./Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { addEditedTodo } from "../app/features/todo/todoSlice";
 import { useEditTodoMutation } from "../app/features/todo/todoApi";
@@ -12,7 +12,7 @@ const TodoCard = ({ todo }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const { editTodo: selectedTodo } = useSelector((state) => state.todo);
-  const [editTodo, { data: editTodoresponse, isLoading, isError }] =
+  const [editTodo, { isLoading }] =
     useEditTodoMutation();
 
   const handleEditTodo = (id, isCompleted) => {
@@ -70,7 +70,7 @@ const TodoCard = ({ todo }) => {
               </div>
             </div>
             <p
-              className={`leading-snug text-gray-600  ${
+              className={`leading-snug text-gray-600 break-words ${
                 todo?.complete && "line-through"
               }`}
             >

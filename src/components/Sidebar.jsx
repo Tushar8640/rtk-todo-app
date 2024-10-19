@@ -9,7 +9,7 @@ function SidebarNav() {
   const { user } = useSelector((state) => state.auth);
   const handleLogOut = () => {
     dispatch(userLoggedOut());
-    console.log("out");
+    
   };
   const { filterCategory: category } = useSelector((state) => state.todo);
   const handleFilterCat = (item) => {
@@ -20,7 +20,7 @@ function SidebarNav() {
       <div className="grid grid-cols-3  divide-y divide-gray-300">
         <div className="flex items-center p-2 space-x-4 col-span-2 md:col-span-3 order-1 md:order-1">
           <img
-            src="https://source.unsplash.com/100x100/?portrait"
+            src="https://randomuser.me/api/portraits/men/1.jpg"
             alt=""
             className="w-12 h-12 rounded-full bg-gray-500"
           />

@@ -38,7 +38,7 @@ const Registration = () => {
   }, [data, responseError, navigate]);
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(name, email, password);
+    
     signUp({
       name,
       email,
@@ -46,8 +46,8 @@ const Registration = () => {
     });
   };
 
-  console.log(data, isLoading, isError);
-  console.log(error);
+  
+  
 
   return (
     <div className="grid h-screen place-items-center">
