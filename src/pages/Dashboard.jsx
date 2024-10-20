@@ -1,20 +1,15 @@
-import React, { useState } from "react";
 import SidebarNav from "../components/Sidebar";
 import Header from "../components/Header";
 import Todo from "../components/Todo";
 
 const Dashboard = () => {
-  const [show, setShow] = useState(false);
-  const onClick = () => {
-    setShow(!show);
-  };
   return (
-    <div className="grid place-items-center h-screen">
-      <div className=" max-w-6xl h-[700px]  bg-white p-2  md:border-[3px] md:border-gray-600/[.4] rounded-3xl">
+    <div className="grid md:place-items-center h-screen lg:px-10">
+      <div className=" max-w-6xl  lg:h-[700px] bg-white p-2   lg:border-[3px] md:border-gray-600/[.4] rounded-3xl w-full">
         <Header />
 
-        <div className="grid grid-cols-12">
-          <div className="md:col-span-2 col-span-12">
+        <div className="grid grid-cols-12 mt-16">
+          <div className="md:col-span-2 col-span-12 ">
             <SidebarNav />
           </div>
           <div className="col-span-12 md:col-span-10 mx-5">

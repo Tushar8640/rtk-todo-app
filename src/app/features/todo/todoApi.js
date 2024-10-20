@@ -16,8 +16,8 @@ export const todoApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const result = await queryFulfilled;
-        console.log(result);
-        console.log(arg);
+        
+        
         const email = result.data?.todo?.user?.email;
         const queryString = "";
         if (result?.data?.status == "success") {
@@ -41,8 +41,8 @@ export const todoApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const result = await queryFulfilled;
-        console.log(result);
-        console.log(arg);
+        
+        
 
         const queryString = "";
 
@@ -52,7 +52,7 @@ export const todoApi = apiSlice.injectEndpoints({
               "getTodos",
               { email: arg?.email, queryString: queryString },
               (draft) => {
-                console.log("caching");
+                
                 console.log(JSON.stringify(draft?.todos));
                 const filterDraft = draft?.todos?.filter(
                   (d) => d?._id !== arg?.id
@@ -78,9 +78,9 @@ export const todoApi = apiSlice.injectEndpoints({
         const result = await queryFulfilled;
         const email = result?.data?.todo?.user?.email;
         const updatedTodo = result?.data?.todo;
-        console.log(updatedTodo);
+        
         const queryString = "";
-        console.log(arg);
+        
 
         if (result?.data?.status == "success") {
           dispatch(
@@ -88,7 +88,7 @@ export const todoApi = apiSlice.injectEndpoints({
               "getTodos",
               { email: email, queryString: queryString },
               (draft) => {
-                console.log("caching when edit");
+                
                 console.log(JSON.stringify(draft?.todos));
                 const findDraft = draft?.todos?.find((d) => d?._id == arg?.id);
                 console.log(JSON.stringify(findDraft));

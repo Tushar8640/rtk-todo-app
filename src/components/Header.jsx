@@ -25,7 +25,7 @@ const Header = () => {
   }, [searchTerm, dispatch]);
 
   return (
-    <header className="p-4 text-gray-800">
+    <header className="p-4 text-gray-800 shadow fixed md:relative -mt-2 md:mt-0 z-50 bg-white w-full">
       <div className="container flex justify-between h-8 mx-auto">
         <h1 className="text-2xl">Todo</h1>
         <div className="flex items-center md:space-x-4">
@@ -51,7 +51,7 @@ const Header = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search..."
-              className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-100 text-gray-800 focus:bg-gray-50"
+              className="w-44 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-100 text-gray-800 focus:bg-gray-50 mr-2"
             />
           </div>
           <button onClick={handleModal} className="">
